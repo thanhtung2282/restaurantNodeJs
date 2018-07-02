@@ -30,4 +30,5 @@ userRouter.post('/check',mustBeUser,(req,res)=>{
     .then(user => res.send({success:true, user}))
     .catch(res.onError);
 });
+
 module.exports = {userRouter};

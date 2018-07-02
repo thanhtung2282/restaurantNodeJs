@@ -2,6 +2,7 @@ const express = require('express');
 const {json} = require('body-parser');
 
 const {userRouter} = require('./controllers/user.route');
+const {cateRouter} = require('./controllers/category.route');
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use((req,res,next)=>{
 })
 
 app.use('/user',userRouter);
+app.use('/category',cateRouter);
 
 module.exports = {app};
