@@ -5,6 +5,9 @@ const {User} = require('../models/user.model');
 const {MyError} = require('../helpers/my-error');
 
 const {Sign, Verify} = require('../helpers/jwt');
+
+const {checkObjectId} = require('../helpers/checkObjectId');
+
 class UserService {
     static getAll(){
         return User.find({})
@@ -41,6 +44,18 @@ class UserService {
         const userInfo = user.toObject();
         delete userInfo.password;
         userInfo.token = await Sign({_id:user._id});
+        return userInfo;
+    }
+    static async Check(_id){
+        //checkobject ID
+        checkObjectId(_id);
+        //check existed
+        const user = await User.findById(_id);
+        if(!user) throw new MyError('CANNOT_FIND_USER',404);
+        //send
+        const userInfo = user.toObject();
+        delete userInfo.password;
+        userInfo.toke = await Sign({_id:user._id});
         return userInfo;
     }
 }
