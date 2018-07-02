@@ -1,4 +1,3 @@
-
 const { MyError } = require('../helpers/my-error')
 const { Product } = require('../models/product.model');
 const { Category } = require('../models/category.model');
@@ -53,6 +52,16 @@ class productService {
             if(error.name == 'MongoError') throw new MyError('NAME_PRODUCT_EXISTED',400); 
             throw new MyError('CANNOT_FIND_PRODUCT',404);  
         }
+    }
+    static async removeProduct(idProduct){
+        checkObjectId(idProduct);
+        const product_old = await Product.findById(idProduct);
+        if(!product_old) throw new MyError('CANNOT_FIND_PRODUCT',404);
+        const product = await Product.findByIdAndRemove(idProduct);
+        
+        //remove in cate
+        await Category.findByIdAndUpdate(product_old.category,{$pull:{products:idProduct}});
+        return product;
     }
 }
 module.exports ={productService};

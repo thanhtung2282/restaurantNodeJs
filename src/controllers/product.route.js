@@ -25,6 +25,10 @@ producRouter.put('/:idProduct',(req,res)=>{
     .then(product => res.send({success:true, product}))
     .catch(res.onError);
 });
-
+producRouter.delete('/:idProduct',(req,res)=>{
+    productService.removeProduct(req.params.idProduct)
+    .then(product => res.send({success:true, product}))
+    .catch(res.onError);
+});
 
 module.exports = {producRouter};
