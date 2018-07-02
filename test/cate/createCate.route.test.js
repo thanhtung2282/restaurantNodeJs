@@ -11,10 +11,10 @@ describe('TEST POST CATEGORY/', () => {
         const {success,cate} = response.body;
         equal(success,true);
         equal(cate.name,'Phần Ăn Trẻ Em');
-        equal(cate.product.length,0);      
+        equal(cate.products.length,0);      
         const cateDb = await Category.findById(cate._id)
         equal(cateDb.name,'Phần Ăn Trẻ Em');
-        equal(cateDb.product.length,0);  
+        equal(cateDb.products.length,0);  
     });
     it('Cannot create category without name', async() => {
         const body = {name:""}

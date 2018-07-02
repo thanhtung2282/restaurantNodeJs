@@ -3,6 +3,7 @@ const {json} = require('body-parser');
 
 const {userRouter} = require('./controllers/user.route');
 const {cateRouter} = require('./controllers/category.route');
+const {producRouter} = require('./controllers/product.route');
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use((req,res,next)=>{
 
 app.use('/user',userRouter);
 app.use('/category',cateRouter);
+app.use('/product',producRouter);
 
 module.exports = {app};
