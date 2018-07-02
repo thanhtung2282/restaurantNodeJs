@@ -1,0 +1,23 @@
+{
+  "name": "restaurantNodeJs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thanhtung2282/restaurantNodeJs.git",
+  "author": "thanhtung2282 <tungnguyenthanh357@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "4.13.7"
+  },
+  "scripts": {
+    "server": "nodemon src/index.js",
+    "test": "nodemon --exec mocha --recursive"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
+  }
+}
