@@ -24,5 +24,17 @@ class CategoryService {
         if(!cate) throw new MyError('CANNOT_FIND_CATEGORY', 404);
         return cate;
     }
+    static async removeCategory(idCate){
+        checkObjectId(idCate);
+        const cate = await Category.findById(idCate);
+        if(!cate) throw new MyError('CANNOT_FIND_CATEGORY', 404);
+        try {
+            if(cate.products.length !== 0)throw new Error;
+            const remove = await Category.findByIdAndRemove(idCate);
+            return remove;
+        } catch (error) {
+            throw new MyError('CANNOT_REMOVE_CATEGORY', 400);
+        }
+    }
 }
 module.exports = { CategoryService };

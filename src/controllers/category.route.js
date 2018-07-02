@@ -25,6 +25,10 @@ cateRouter.put('/:idCate',(req,res)=>{
     .then(cate => res.send({success:true, cate}))
     .catch(res.onError);
 });
-
+cateRouter.delete('/:idCate',(req,res)=>{
+    CategoryService.removeCategory(req.params.idCate)
+    .then(cate => res.send({success:true, cate}))
+    .catch(res.onError);
+});
 
 module.exports = {cateRouter};
