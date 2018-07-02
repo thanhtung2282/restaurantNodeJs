@@ -3,6 +3,8 @@ const {hash, compare} = require('bcrypt');
 const {User} = require('../models/user.model');
 
 const {MyError} = require('../helpers/my-error');
+
+const {Sign, Verify} = require('../helpers/jwt');
 class UserService {
     static getAll(){
         return User.find({})
@@ -24,6 +26,22 @@ class UserService {
         } catch (error) {
             throw new MyError('EMAIL_EXISTED',400);
         }
+    }
+    static async SignIn(email,plainPassword){
+        // get data
+        if(!email) throw new MyError('EMAIL_MUST_BE_PROVIDE',400);
+        if(!plainPassword) throw new MyError('PLAINPASSWORD_MUST_BE_PROVIDE',400);
+        //search email in db
+        const user = await User.findOne({email});
+        if(!user) throw new MyError('INVALID_EMAIL',400);
+        // same plainpass and pass DB
+        const same = await compare(plainPassword,user.password);
+        if(!same) throw new MyError('INVALID_PASSWORD',400);
+        // remove pass and add token then send 
+        const userInfo = user.toObject();
+        delete userInfo.password;
+        userInfo.token = await Sign({_id:user._id});
+        return userInfo;
     }
 }
 module.exports = {UserService};

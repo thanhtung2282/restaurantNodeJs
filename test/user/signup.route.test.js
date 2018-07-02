@@ -1,6 +1,5 @@
 const supertest = require('supertest');
 const { equal } = require('assert');
-const { compareSync } = require('bcrypt');
 const { app } = require('../../src/app');
 const { User } = require('../../src/models/user.model');
 const { UserService } = require('../../src/services/user.services');
