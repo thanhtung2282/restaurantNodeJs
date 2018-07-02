@@ -42,13 +42,14 @@ describe('TEST POST USER/CHECK', () => {
         equal(response.status,400);
 
     });
-    xit('Can signin with user removed', async() => {
-        const response = await supertest(app).post('/user/check').set({token:'12'});
+    it('Can signin with user removed', async() => {
+        await User.remove({});
+        const response = await supertest(app).post('/user/check').set({token});
         const {success,user,message} = response.body;
         equal(success,false);
         equal(user,undefined);
-        equal(message,'INVALID_TOKEN');
-        equal(response.status,400);
+        equal(message,'CANNOT_FIND_USER');
+        equal(response.status,404);
 
     });
 });
