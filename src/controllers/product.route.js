@@ -17,6 +17,14 @@ producRouter.post('/',(req,res)=>{
     .then(product => res.send({success:true, product}))
     .catch(res.onError);
 });
+producRouter.put('/:idProduct',(req,res)=>{
+    //get data
+    const { name, quantity, cost, price, idCate} = req.body;
+    //create
+    productService.updateProduct(name, quantity, cost, price, idCate,req.params.idProduct)
+    .then(product => res.send({success:true, product}))
+    .catch(res.onError);
+});
 
 
 module.exports = {producRouter};

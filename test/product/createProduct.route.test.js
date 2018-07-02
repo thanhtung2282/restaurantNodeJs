@@ -6,7 +6,7 @@ const { productService } = require('../../src/services/product.services');
 const { CategoryService } = require('../../src/services/category.services');
 const { Category } = require('../../src/models/category.model');
 
-describe.only('TEST POST PRODUCT/', () => {
+describe('TEST POST PRODUCT/', () => {
     let idCate;
     beforeEach('create cate for test',async()=>{
         const cate =  await CategoryService.createCategory("Phần Ăn Trẻ Em");
