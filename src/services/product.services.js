@@ -38,7 +38,7 @@ class productService {
         try {
             //get product old
             const product_old  = await Product.findById(idProduct);
-            if(!product_old) throw new Error();
+            // if(!product_old) throw new Error();
             //update product
             const updateObjProduct = { name, quantity, cost, price, category:idCate } ;
             const product = await Product.findByIdAndUpdate(idProduct,updateObjProduct,{new:true});

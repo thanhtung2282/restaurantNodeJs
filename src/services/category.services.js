@@ -20,9 +20,16 @@ class CategoryService {
     static async updateCategory(name, idCate) {
         if (!name) throw new MyError('NAME_MUST_BE_PROVIDE', 400);
         checkObjectId(idCate);
-        const cate = await Category.findByIdAndUpdate(idCate,{name},{new:true});
-        if(!cate) throw new MyError('CANNOT_FIND_CATEGORY', 404);
-        return cate;
+        try {
+            const check = await Category.findById(idCate);
+            if(!check) throw new Error();
+            
+            const cate = await Category.findByIdAndUpdate(idCate,{name},{new:true});
+            return cate;        
+        } catch (error) {
+            if(error.name == 'MongoError') throw new MyError('NAME_CATEGORY_EXISTED',400);
+            throw new MyError('CANNOT_FIND_CATEGORY', 404);
+        }
     }
     static async removeCategory(idCate){
         checkObjectId(idCate);
