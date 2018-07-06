@@ -15,7 +15,7 @@ describe('TEST POST USER/CHECK', () => {
         id_user = Test._id;
     })
     it('Can signin', async() => {
-        const response = await supertest(app).post('/user/check').set({token});
+        const response = await supertest(app).get('/user/check').set({token});
         const {success,user} = response.body;
         equal(success,true);
         equal(user.name,'Thanh Tùng');
@@ -25,7 +25,7 @@ describe('TEST POST USER/CHECK', () => {
 
     });
     it('Can signin without token', async() => {
-        const response = await supertest(app).post('/user/check');
+        const response = await supertest(app).get('/user/check');
         const {success,user,message} = response.body;
         equal(success,false);
         equal(user,undefined);
@@ -34,7 +34,7 @@ describe('TEST POST USER/CHECK', () => {
 
     });
     it('Can signin with wrong token', async() => {
-        const response = await supertest(app).post('/user/check').set({token:'12'});
+        const response = await supertest(app).get('/user/check').set({token:'12'});
         const {success,user,message} = response.body;
         equal(success,false);
         equal(user,undefined);
@@ -44,7 +44,7 @@ describe('TEST POST USER/CHECK', () => {
     });
     it('Can signin with user removed', async() => {
         await User.remove({});
-        const response = await supertest(app).post('/user/check').set({token});
+        const response = await supertest(app).get('/user/check').set({token});
         const {success,user,message} = response.body;
         equal(success,false);
         equal(user,undefined);

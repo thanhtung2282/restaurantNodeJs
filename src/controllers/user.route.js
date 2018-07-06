@@ -25,7 +25,7 @@ userRouter.post('/signin',(req,res)=>{
     .then(user => res.send({success:true, user}))
     .catch(res.onError);
 });
-userRouter.post('/check',mustBeUser,(req,res)=>{
+userRouter.get('/check',mustBeUser,(req,res)=>{
     UserService.Check(req.id_user)
     .then(user => res.send({success:true, user}))
     .catch(res.onError);

@@ -15,10 +15,8 @@ describe('TEST DELETE AREA/', () => {
     it('Can remove AREA', async() => {
         const response = await supertest(app).delete('/area/'+idArea);
         const {success,area} = response.body;
-        console.log(response.body)
         equal(success,true);
-        equal(area.name,'Tầng 1');
-        equal(area.position,10);    
+        equal(area.name,'Tầng 1');    
         const areaDb = await Area.findById(idArea)
         equal(areaDb,null);
     });

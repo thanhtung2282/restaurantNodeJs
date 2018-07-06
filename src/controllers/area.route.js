@@ -10,17 +10,17 @@ areaRouter.get('/',(req,res)=>{
 });
 areaRouter.post('/',(req,res)=>{
     //get data
-    const {name,position} = req.body;
+    const {name} = req.body;
     //create
-    AreaService.createArea(name,position)
+    AreaService.createArea(name)
     .then(area => res.send({success:true, area}))
     .catch(res.onError);
 });
 areaRouter.put('/:id',(req,res)=>{
     //get data
-    const {name,position} = req.body;
+    const {name} = req.body;
     //create
-    AreaService.updateArea(name,position,req.params.id)
+    AreaService.updateArea(name,req.params.id)
     .then(area => res.send({success:true, area}))
     .catch(res.onError);
 });

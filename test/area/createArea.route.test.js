@@ -12,17 +12,15 @@ describe('TEST POST AREA/', () => {
         }
         const response = await supertest(app).post('/area').send(body);
         const {success,area} = response.body;
+
         equal(success,true);
         equal(area.name,'Tầng 1');
-        equal(area.position,10);    
+        equal(area.tables.length,0);
         const areaDb = await Area.findById(area._id)
         equal(areaDb.name,'Tầng 1');
     });
     it('Cannot create AREA without name', async() => {
-        const body = {
-            name:"",
-            position:10
-        }
+        const body = {name:""}
         const response = await supertest(app).post('/area/').send(body);
         const {success,area,message} = response.body;
         equal(success,false);
@@ -32,26 +30,9 @@ describe('TEST POST AREA/', () => {
         const areaDb = await Area.findOne()
         equal(areaDb,null);
     });
-    it('Cannot create AREA without name', async() => {
-        const body = {
-            name:"Tầng 1",
-            position:''
-        }
-        const response = await supertest(app).post('/area/').send(body);
-        const {success,area,message} = response.body;
-        equal(success,false);
-        equal(area,undefined);
-        equal(message,'POSITION_MUST_BE_PROVIDE');      
-        equal(response.status,400);      
-        const areaDb = await Area.findOne()
-        equal(areaDb,null);
-    });
     it('Cannot create AREA with name existed', async() => {
-        await AreaService.createArea("Tầng 1",10)
-        const body = {
-            name:"Tầng 1",
-            position:10
-        }
+        await AreaService.createArea("Tầng 1")
+        const body = {name:"Tầng 1"}
         const response = await supertest(app).post('/area/').send(body);
         const {success,area,message} = response.body;
         equal(success,false);

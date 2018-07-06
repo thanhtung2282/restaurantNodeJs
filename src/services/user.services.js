@@ -55,7 +55,7 @@ class UserService {
         //send
         const userInfo = user.toObject();
         delete userInfo.password;
-        userInfo.toke = await Sign({_id:user._id});
+        userInfo.token = await Sign({_id:user._id});
         return userInfo;
     }
 }

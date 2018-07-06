@@ -8,24 +8,22 @@ class AreaService {
     }
     static async createArea(name, position) {
         if (!name) throw new MyError('NAME_MUST_BE_PROVIDE', 400);
-        if (!position) throw new MyError('POSITION_MUST_BE_PROVIDE', 400);
         try {
-            const area = new Area({ name, position });
+            const area = new Area({ name});
             await area.save();
             return area;
         } catch (error) {
             throw new MyError('NAME_CATEGORY_EXISTED', 400);
         }
     }
-    static async updateArea(name, position,_id) {
+    static async updateArea(name,_id) {
         if (!name) throw new MyError('NAME_MUST_BE_PROVIDE', 400);
-        if (!position) throw new MyError('POSITION_MUST_BE_PROVIDE', 400);
         checkObjectId(_id)
 
         try {
             const check  = await Area.findById(_id);
             if(!check) throw new Error();
-            const area = await Area.findByIdAndUpdate(_id,{name,position},{new:true})
+            const area = await Area.findByIdAndUpdate(_id,{name},{new:true})
             return area;
         } catch (error) {
             if (error.name == 'MongoError') throw new MyError('NAME_AREA_EXISTED', 400);
