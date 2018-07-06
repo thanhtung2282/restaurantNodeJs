@@ -7,12 +7,10 @@ const { AreaService } = require('../../src/services/area.service');
 describe('TEST POST AREA/', () => {
     it('Can create AREA', async() => {
         const body = {
-            name:"Tầng 1",
-            position:10
+            name:"Tầng 1"
         }
         const response = await supertest(app).post('/area').send(body);
         const {success,area} = response.body;
-
         equal(success,true);
         equal(area.name,'Tầng 1');
         equal(area.tables.length,0);

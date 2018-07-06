@@ -5,6 +5,7 @@ const {userRouter} = require('./controllers/user.route');
 const {cateRouter} = require('./controllers/category.route');
 const {producRouter} = require('./controllers/product.route');
 const {areaRouter} = require('./controllers/area.route');
+const {tableRouter} = require('./controllers/table.route');
 
 const app = express();
 app.use(cors());
@@ -24,5 +25,6 @@ app.use('/user',userRouter);
 app.use('/category',cateRouter);
 app.use('/product',producRouter);
 app.use('/area',areaRouter);
+app.use('/table',tableRouter);
 
 module.exports = {app};
