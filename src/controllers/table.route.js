@@ -16,14 +16,14 @@ tableRouter.post('/',(req,res)=>{
     .then(table => res.send({success:true, table}))
     .catch(res.onError);
 });
-// tableRouter.put('/:id',(req,res)=>{
-//     //get data
-//     const {name} = req.body;
-//     //create
-//     AreaService.updateArea(name,req.params.id)
-//     .then(area => res.send({success:true, area}))
-//     .catch(res.onError);
-// });
+tableRouter.put('/:id',(req,res)=>{
+    //get data
+    const {status} = req.body;
+    //create
+    TableService.updateStatusTable(req.params.id,status)
+    .then(table => res.send({success:true, table}))
+    .catch(res.onError);
+});
 // tableRouter.delete('/:id',(req,res)=>{
 //     AreaService.removeArea(req.params.id)
 //     .then(area => res.send({success:true, area}))

@@ -4,7 +4,7 @@ const { MyError } = require('../helpers/my-error')
 
 class AreaService {
     static getAll() {
-        return Area.find({});
+        return Area.find({}).populate('tables');
     }
     static async createArea(name, position) {
         if (!name) throw new MyError('NAME_MUST_BE_PROVIDE', 400);

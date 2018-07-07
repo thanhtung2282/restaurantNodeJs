@@ -4,7 +4,7 @@ const {productService} = require('../services/product.services');
 
 const producRouter = Router();
 producRouter.get('/',(req,res)=>{
-    productService.getAll()
+    productService.getALL()
     .then(product => res.send({success:true, product}))
     .catch(res.onError);
 });
