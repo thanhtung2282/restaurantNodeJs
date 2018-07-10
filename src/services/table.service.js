@@ -5,7 +5,7 @@ const { MyError } = require('../helpers/my-error')
 
 class TableService {
     static getAll() {
-        return Table.find({});
+        return Table.find({}).populate('area','name');
     }
     static async createTable(name, idArea) {
         if (!name) throw new MyError('NAME_MUST_BE_PROVIDE', 400);
@@ -18,7 +18,7 @@ class TableService {
         return table;
     }
     static async updateStatusTable(_id,status) {
-        const table = await Table.findByIdAndUpdate(_id,{status});
+        const table = await Table.findByIdAndUpdate(_id,{status:status});
         return table;
     }
 

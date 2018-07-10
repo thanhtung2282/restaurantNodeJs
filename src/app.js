@@ -6,7 +6,7 @@ const {cateRouter} = require('./controllers/category.route');
 const {producRouter} = require('./controllers/product.route');
 const {areaRouter} = require('./controllers/area.route');
 const {tableRouter} = require('./controllers/table.route');
-
+const path = require('path');
 const app = express();
 app.use(cors());
 
@@ -23,8 +23,13 @@ app.use((req,res,next)=>{
 
 app.use('/user',userRouter);
 app.use('/category',cateRouter);
-app.use('/product',producRouter);
 app.use('/area',areaRouter);
 app.use('/table',tableRouter);
+app.use('/product',producRouter);
+// app.use(express.static('src/public'));
+app.get('/upload/:name',(req,res)=>{
+    const name  = req.params.name;
+    res.sendFile(path.join(__dirname, 'public', `${name}`));
 
+})
 module.exports = {app};

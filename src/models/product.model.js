@@ -8,6 +8,7 @@ productSchema = new Schema({
     cost: { type: Number, required: true, trim: true},
     price: { type: Number, required: true, trim: true},
     category: {type:mongoose.SchemaTypes.ObjectId,ref:'Category'},
+    image: {type: String,trim: true}
 });
 const Product = mongoose.model('Product', productSchema);
 

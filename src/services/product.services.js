@@ -1,4 +1,4 @@
-const { MyError } = require('../helpers/my-error')
+const { MyError } = require('../helpers/my-error');
 const { Product } = require('../models/product.model');
 const { Category } = require('../models/category.model');
 const { checkObjectId } = require('../helpers/checkObjectId');
@@ -15,7 +15,7 @@ class productService {
         //check 
         checkObjectId(idCate);
         //create produc
-        const product = new Product({ name, quantity, cost, price, category:idCate });
+        const product = new Product({ name, quantity, cost, price, category:idCate,image:'' });
         //update cate
         const updateObj = { $push: { products: product._id } };
         const cate = await Category.findByIdAndUpdate(idCate, updateObj);
@@ -61,6 +61,16 @@ class productService {
         
         //remove in cate
         await Category.findByIdAndUpdate(product_old.category,{$pull:{products:idProduct}});
+        return product;
+    }
+    //upload image
+    static async uploadProduct(idProduct,name){
+        checkObjectId(idProduct);
+        const product_old = await Product.findById(idProduct);
+        if(!product_old) throw new MyError('CANNOT_FIND_PRODUCT',404);
+        const product = await Product.findByIdAndUpdate(idProduct,{image:name});
+        
+       
         return product;
     }
 }
